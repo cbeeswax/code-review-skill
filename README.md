@@ -33,6 +33,11 @@ contract, or trace is an **evidence gap**, not a defect claim. Only
 high-confidence, evidence-backed findings may be posted to a pull request, and
 only when the user explicitly asks for posting.
 
+Inline PR comments lead with the business consequence: who is affected, what
+can go wrong, and when. The supporting file/line evidence and technical cause
+come after that plain-language context. A comment without a clear, evidence-
+backed business consequence stays in the local report.
+
 ## Install
 
 Clone this repository and use the location your agent discovers:
@@ -64,9 +69,9 @@ Call a focused lens when needed:
 ```
 
 To post to a GitHub pull request, explicitly request it and provide the PR.
-The skill posts only verified, high-confidence actionable findings plus one
-summary, using the available GitHub integration. It does not post, approve,
-merge, or change code by default.
+The skill posts only verified, high-confidence actionable findings inline,
+written in business context first, plus one business-impact summary. It does
+not post, approve, merge, or change code by default.
 
 ## Development
 

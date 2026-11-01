@@ -46,6 +46,14 @@ class GeneratedSkillTests(unittest.TestCase):
                 self.assertTrue(content.startswith(f"---\nname: {name}\n"))
                 self.assertIn("description: ", content)
 
+    def test_skills_require_business_context_for_inline_comments(self):
+        content = (ROOT / ".github/skills/code-review/SKILL.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("## Inline comment style", content)
+        self.assertIn("Business context first", content)
+        self.assertIn("A customer could be charged twice after a payment timeout", content)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -55,9 +55,11 @@ privacy, reliability, or performance impact.
 Each finding must include:
 
 - Severity and confidence.
-- Changed file and line evidence.
-- The affected behavior, user, system, or data.
-- A concrete failure scenario or reproducer.
+- Business context first: the affected customer, operational outcome, revenue,
+  compliance, trust, or delivery risk.
+- A concrete failure scenario in plain language.
+- Changed file and line evidence, then the technical cause in only the detail
+  needed to make the remediation clear.
 - A specific remediation or verification step.
 - Introduced versus pre-existing classification.
 - Test or validation evidence.
@@ -65,10 +67,37 @@ Each finding must include:
 Start the final report with the count of verified findings. If there are none,
 say `0 verified findings` plainly. Include evidence gaps separately.
 
+## Inline comment style
+
+Write inline comments for a business reader before a technical reader. Lead
+with what could go wrong, for whom, and under what condition. Follow with the
+minimum code-level evidence needed to make the concern credible and actionable.
+Avoid unexplained framework names, implementation trivia, or jargon in the
+first sentence.
+
+Use this shape:
+
+```text
+[Severity] Business consequence
+
+When <business scenario>, <customer, operational, financial, compliance, or
+trust consequence> can occur. This change <plain-language explanation of why>.
+
+Evidence: <file:line and concise technical cause>
+Suggested next step: <specific fix or verification>
+```
+
+For example, write `A customer could be charged twice after a payment timeout`
+instead of `Missing idempotency guard in retry path`. Keep the technical cause
+in the evidence line. Do not post a comment if the business consequence cannot
+be explained from the available evidence.
+
 ## Pull-request behavior
 
 Produce a local report by default. Post GitHub comments only when the user
 explicitly asks and the available integration supports it. Post only
-high-confidence, evidence-backed, actionable findings and one concise summary.
+high-confidence, evidence-backed, actionable findings inline and one concise
+business-impact summary. Keep broad process notes, evidence gaps, and
+low-confidence concerns in the local report rather than posting them inline.
 Never post hypotheses, approve a pull request, merge, or modify code unless
 the user explicitly requests that separate action.
