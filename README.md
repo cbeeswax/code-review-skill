@@ -38,19 +38,74 @@ can go wrong, and when. The supporting file/line evidence and technical cause
 come after that plain-language context. A comment without a clear, evidence-
 backed business consequence stays in the local report.
 
-## Install
+## Install in another repository
 
-Clone this repository and use the location your agent discovers:
+Clone this repository once:
 
-```text
-.github/skills/   GitHub Copilot project skills
-.claude/skills/   Claude Code project skills
-.agents/skills/   Agent Skills-compatible project skills
+```powershell
+git clone https://github.com/cbeeswax/code-review-skill.git
 ```
 
-For GitHub Copilot CLI, start `copilot` from a cloned checkout and use
-`/skills reload`. For Claude Code, copy or link `.claude/skills` into the
-target project if the repository is not already present.
+Then copy the skills into the repository you want to review.
+
+### GitHub Copilot
+
+**Project-only install** (commit the skills with the reviewed repository if
+the whole team should use them):
+
+```powershell
+New-Item -ItemType Directory -Force C:\path\to\your-project\.github\skills | Out-Null
+Copy-Item -Recurse code-review-skill\.github\skills\* C:\path\to\your-project\.github\skills\
+cd C:\path\to\your-project
+copilot
+```
+
+Run `/skills reload`, then invoke `/code-review` or a focused review skill.
+
+**Personal install** (available from every repository):
+
+```powershell
+New-Item -ItemType Directory -Force $HOME\.copilot\skills | Out-Null
+Copy-Item -Recurse code-review-skill\.github\skills\* $HOME\.copilot\skills\
+```
+
+Restart Copilot CLI or run `/skills reload`.
+
+### Claude Code
+
+**Project-only install:**
+
+```powershell
+New-Item -ItemType Directory -Force C:\path\to\your-project\.claude\skills | Out-Null
+Copy-Item -Recurse code-review-skill\.claude\skills\* C:\path\to\your-project\.claude\skills\
+```
+
+**Personal install:**
+
+```powershell
+New-Item -ItemType Directory -Force $HOME\.claude\skills | Out-Null
+Copy-Item -Recurse code-review-skill\.claude\skills\* $HOME\.claude\skills\
+```
+
+### Agent Skills-compatible tools
+
+Copy the standard Agent Skills directory into the target project:
+
+```powershell
+New-Item -ItemType Directory -Force C:\path\to\your-project\.agents\skills | Out-Null
+Copy-Item -Recurse code-review-skill\.agents\skills\* C:\path\to\your-project\.agents\skills\
+```
+
+Tools that support personal Agent Skills can use:
+
+```powershell
+New-Item -ItemType Directory -Force $HOME\.agents\skills | Out-Null
+Copy-Item -Recurse code-review-skill\.agents\skills\* $HOME\.agents\skills\
+```
+
+All three directories contain the same generated skill content. Choose the
+directory your agent discovers; do not install all three into the same target
+repository unless that repository intentionally supports multiple agents.
 
 ## Usage
 
