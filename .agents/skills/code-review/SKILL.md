@@ -23,12 +23,16 @@ license: MIT
      radius. Run every applicable lens, including security, privacy, and
      performance.
    Missing evidence raises the tier; it never silently lowers it.
-4. Ask or run the narrowest available verification: static tracing, targeted
+4. Load and follow the selected sibling skill instructions before applying its
+   lens: `review-correctness`, `review-regressions`, `review-testing`,
+   `review-architecture`, `review-risk`, `review-security`, `review-privacy`,
+   and `review-performance`. Run selected lenses independently.
+5. Ask or run the narrowest available verification: static tracing, targeted
    tests, build/type checks, simulations, fuzz/property tests, benchmarks, or
    screenshots for UI changes.
-5. Run selected lenses independently. Deduplicate their findings, preserve the
-   strongest evidence, and separate verified findings from evidence gaps.
-6. Deliver: risk tier; verified finding count; findings sorted by severity;
+6. Deduplicate lens findings, preserve the strongest evidence, and separate
+   verified findings from evidence gaps.
+7. Deliver: risk tier; verified finding count; findings sorted by severity;
    evidence ledger; tests run and results; evidence gaps; rollback and
    residual-risk summary.
 

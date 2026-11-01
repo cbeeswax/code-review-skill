@@ -116,6 +116,10 @@ Use the dispatcher for most requests:
 report high-confidence findings plus evidence gaps.
 ```
 
+The dispatcher chooses the review lenses from the change's risk and loads their
+instructions automatically. You only need to call a focused skill when you
+want that single perspective or want it emphasized.
+
 Call a focused lens when needed:
 
 ```text

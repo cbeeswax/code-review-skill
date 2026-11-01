@@ -54,6 +54,14 @@ class GeneratedSkillTests(unittest.TestCase):
         self.assertIn("Business context first", content)
         self.assertIn("A customer could be charged twice after a payment timeout", content)
 
+    def test_dispatcher_loads_selected_review_lenses(self):
+        content = (ROOT / ".github/skills/code-review/SKILL.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("Load and follow the selected sibling skill instructions", content)
+        self.assertIn("review-security", content)
+        self.assertIn("review-performance", content)
+
 
 if __name__ == "__main__":
     unittest.main()
