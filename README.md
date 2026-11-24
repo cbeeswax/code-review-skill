@@ -33,6 +33,35 @@ contract, or trace is an **evidence gap**, not a defect claim. Only
 high-confidence, evidence-backed findings may be posted to a pull request, and
 only when the user explicitly asks for posting.
 
+### Evidence that can disagree
+
+The implementation, its tests, and a reviewer can all agree while relying on
+the same wrong assumption — three green lights, one blind spot. So the skills:
+
+- **Name the load-bearing assumptions** (for example, "a missing response
+  means the payment failed") and ask, for each, *what would show this reasoning
+  is wrong?*
+- **Record each assumption's basis** as independent (a contract,
+  documentation, observed behavior, an owner's decision) or inherited (the
+  implementation itself, a mock written to make it pass, the same incomplete
+  requirements). Inherited support is an evidence gap.
+- **Do not count agreement as corroboration.** Several lenses, models, or
+  people reading the same code, tests, and requirements are not independent
+  evidence.
+- **Keep impact, confidence, and verification separate** for every finding,
+  instead of one reassuring score. A serious concern stays visible while it is
+  unverified.
+- **Report decisions for the owner** when behavior works as written but
+  quietly changes a promise — failing open on an access check, cancelling an
+  appointment before its replacement is confirmed.
+- **Say where confidence stops.** "0 verified findings" comes with what was
+  checked and what remains unresolved.
+- **Let risk decide the evidence required.** Low-risk changes may be eligible
+  for automatic approval under a team's agreed policy (the skill never
+  approves); medium- and high-risk changes go to a human owner with intent,
+  constraints, evidence, and open questions; an unresolved high-impact concern
+  needs better evidence, not another approval.
+
 Inline PR comments lead with the business consequence: who is affected, what
 can go wrong, and when. The supporting file/line evidence and technical cause
 come after that plain-language context. A comment without a clear, evidence-

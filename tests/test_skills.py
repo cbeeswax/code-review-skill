@@ -54,6 +54,40 @@ class GeneratedSkillTests(unittest.TestCase):
         self.assertIn("Business context first", content)
         self.assertIn("A customer could be charged twice after a payment timeout", content)
 
+    def test_every_skill_challenges_shared_assumptions(self):
+        for name in NAMES:
+            content = (ROOT / ".github/skills" / name / "SKILL.md").read_text(encoding="utf-8")
+            self.assertIn("## Challenge the shared assumption", content, name)
+            self.assertIn("What would show that this reasoning is wrong?", content, name)
+            self.assertIn("**independent**", content, name)
+            self.assertIn("**inherited**", content, name)
+            self.assertIn("Agreement is not independence.", content, name)
+
+    def test_impact_confidence_and_verification_stay_separate(self):
+        for name in NAMES:
+            content = (ROOT / ".github/skills" / name / "SKILL.md").read_text(encoding="utf-8")
+            self.assertIn("## Impact, confidence, and verification", content, name)
+            self.assertIn("never\nblend them into one reassuring score", content, name)
+            self.assertIn("decision for\nthe owner", content, name)
+            self.assertIn("where confidence stops", content, name)
+
+    def test_dispatcher_lets_risk_decide_the_evidence(self):
+        content = (ROOT / ".github/skills/code-review/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("## Let risk decide the evidence required", content)
+        self.assertIn("Do not approve it yourself.", content)
+        self.assertIn("not cleared by another approval", content)
+        self.assertIn("do not\n   treat their agreement as independent evidence", content)
+
+    def test_lenses_cover_the_part_three_failure_modes(self):
+        def lens(name):
+            return (ROOT / ".github/skills" / name / "SKILL.md").read_text(encoding="utf-8")
+
+        self.assertIn("the payment succeeds, then its response is lost", lens("review-testing"))
+        self.assertIn("inherited evidence", lens("review-testing"))
+        self.assertIn("fail-open", lens("review-security"))
+        self.assertIn("preserves the promise", lens("review-correctness"))
+        self.assertIn("remains unknown", lens("review-risk"))
+
     def test_dispatcher_loads_selected_review_lenses(self):
         content = (ROOT / ".github/skills/code-review/SKILL.md").read_text(
             encoding="utf-8"
